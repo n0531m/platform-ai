@@ -1,0 +1,40 @@
+{
+  "name": "@googlemaps/code-assist-mcp",
+  "version": "0.1",
+  "main": "code-assist-mcp/index.js",
+  "type": "module",
+  "bin": {
+    "google-maps-platform-code-assist": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist",
+    "compile": "tsc index.ts && shx chmod +x dist/*.js",
+    "start": "node dist/index.js",
+    "build": "bun clean && bun build index.ts --outdir dist --target=node",
+    "build:dist": "bun clean && bun build index.ts --outdir dist --target=node --format=cjs --minify && echo '{\"type\": \"commonjs\"}' > dist/package.json && cp README.md CHANGELOG.md dist && zip -r dist_$(date +%Y%m%d).zip dist",
+    "test": "bun test tests/unit.test.ts",
+    "test:integration": "bun test tests/integration.test.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@google-cloud/vertexai": "^1.10.0",
+    "@modelcontextprotocol/sdk": "^1.11.3",
+    "@types/node": "^22.15.18",
+    "axios": "1.9.0",
+    "google-auth-library": "^9.15.1",
+    "shx": "^0.4.0",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "bun": "1.2.18"
+  }
+}

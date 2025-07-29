@@ -1,0 +1,23 @@
+{
+  "name": "google-maps-platform-ai",
+  "version": "1.0.0",
+  "workspaces": ["packages/code-assist"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/googlemaps/platform-ai.git"
+  },  
+  "publishConfig": {
+    "registry": "https://wombat-dressing-room.appspot.com"
+  },
+  "scripts": {
+    "test": "true",
+    "test:integration": "true",
+    "build": "true",
+    "lint": "true",
+    "clean": "true",
+    "publish": "true"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "type": "commonjs"
+}
