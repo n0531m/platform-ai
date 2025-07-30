@@ -41,7 +41,7 @@ jobs:
           cache: npm
 
       - name: Install Dependencies
-        run: npm install --workspaces --include-workspace-root
+        run: npm install --workspaces
 
       # Now configure node with the registry used for publishing
       - name: Setup Node for Publishing
@@ -52,6 +52,6 @@ jobs:
 
       - name: Publish
         # npm publish will trigger the build via the prepack hook
-        run: npm publish --workspaces --include-workspace-root
+        run: npm publish --workspace=packages/code-assist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_WOMBOT_TOKEN }}
