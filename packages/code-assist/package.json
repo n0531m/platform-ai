@@ -1,7 +1,7 @@
 {
   "name": "@googlemaps/code-assist-mcp",
   "version": "0.1.0",
-  "main": "code-assist-mcp/index.js",
+  "main": "code-assist/index.js",
   "type": "module",
   "bin": {
     "google-maps-platform-code-assist": "dist/index.js"

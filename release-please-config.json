@@ -10,16 +10,18 @@
     },
     "sentence-case"
   ],
-  "include-component-in-tag": false,
+  "include-component-in-tag": true,
   "include-v-in-tag": true,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
+  "separate-pull-requests": true,
   "packages": {
     "packages/code-assist": {
       "package-name": "@googlemaps/code-assist-mcp",
       "release-type": "node",
       "changelog-path": "packages/code-assist/CHANGELOG.md",
-      "release-as": "0.1.0"
+      "release-as": "0.1.0",
+      "pull-request-title-pattern": "chore: release ${component} ${version}"
     }
   }
 }
