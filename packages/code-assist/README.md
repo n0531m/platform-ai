@@ -1,7 +1,7 @@
 [![npm](https://img.shields.io/npm/v/@googlemaps/code-assist-mcp)][npm-pkg]
 ![Alpha](https://img.shields.io/badge/release-alpha-orange)
-![Contributors](https://img.shields.io/github/contributors/googlemaps/REPO?color=green)
-[![License](https://img.shields.io/github/license/googlemaps/REPO?color=blue)][license]
+
+[![License](https://img.shields.io/github/license/googlemaps/platform-ai?color=blue)][license]
 [![Discord](https://img.shields.io/discord/676948200904589322?color=6A7EC2&logo=discord&logoColor=ffffff)][Discord server]
 
 # Google Maps Platform Code Assist MCP toolkit (Alpha)
@@ -62,7 +62,7 @@ This tool sends information including the MCP client's query and IP address to a
 
 ## **Contributing**
 
-Contributions are welcome. If you'd like to contribute, send us a [pull request](https://github.com/googlemaps/REPO/compare) and refer to our [code of conduct](https://github.com/googlemaps/.github/blob/master/?tab=coc-ov-file#readme) and [contributing guide](https://github.com/googlemaps/.github/blob/master/CONTRIBUTING.md).
+Contributions are welcome. If you'd like to contribute, send us a [pull request](https://github.com/googlemaps/platform-ai/compare) and refer to our [code of conduct](https://github.com/googlemaps/.github/blob/master/?tab=coc-ov-file#readme) and [contributing guide](https://github.com/googlemaps/.github/blob/master/CONTRIBUTING.md).
 
 ## **Terms of Service**
 
@@ -76,6 +76,13 @@ This toolkit is offered via an open source [license](https://github.com/googlema
 
 This library adheres to [semantic versioning](https://semver.org/) to indicate when backwards-incompatible changes are introduced. Accordingly, while the toolkit is in version 0.x, backwards-incompatible changes may be introduced at any time.
 
-If you find a bug, or have a feature request, please [file an issue](https://github.com/googlemaps/REPO/issues/new/choose) on GitHub. If you would like to get answers to technical questions from other Google Maps Platform developers, ask through one of our [developer community channels](https://developers.google.com/maps/developer-community). If you'd like to contribute, please check the [contributing guide](https://github.com/googlemaps/.github/blob/master/CONTRIBUTING.md).
+If you find a bug, or have a feature request, please [file an issue](https://github.com/googlemaps/platform-ai/issues/new/choose) on GitHub. If you would like to get answers to technical questions from other Google Maps Platform developers, ask through one of our [developer community channels](https://developers.google.com/maps/developer-community). If you'd like to contribute, please check the [contributing guide](https://github.com/googlemaps/.github/blob/master/CONTRIBUTING.md).
 
 You can also discuss this toolkit on our [Discord server](https://discord.gg/hYsWbmk).
+
+<!--repo-specific anchor links-->
+[npm-pkg]: <https://npmjs.com/package/@googlemaps/code-assist-mcp>
+
+<!--constant anchor links-->
+[Discord server]: https://discord.gg/hYsWbmk
+[license]: LICENSE

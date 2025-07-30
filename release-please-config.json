@@ -16,7 +16,8 @@
     "packages/code-assist": {
       "package-name": "@googlemaps/code-assist-mcp",
       "release-type": "node",
-      "changelog-path": "packages/code-assist/CHANGELOG.md"
+      "changelog-path": "packages/code-assist/CHANGELOG.md",
+      "release-as": "0.1.0"
     }
   }
 }
