@@ -17,7 +17,7 @@ When used with an AI agent for coding assistance, this MCP server helps ground i
 
 ## **Requirements**
 
-*   An MCP client, such as the MCP clients built into [Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code), [Cursor](https://cursor.sh/), [Windsurf's Cascade](https://windsurf.com/cascade), and other AI coding assistants.
+* An MCP client, such as the MCP clients built into [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Gemini Code Assist](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers), [Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code), [Cursor](https://cursor.sh/), [Windsurf's Cascade](https://windsurf.com/cascade), [Firebase Studio](https://firebase.google.com/docs/studio/customize-workspace#mcp) and other AI coding assistants.
 *   A local machine on which to clone and run the MCP server that the MCP client can access.
 *   Node.js and npm ([install](https://nodejs.org/en/download)) on the local machine.
 
@@ -25,7 +25,7 @@ When used with an AI agent for coding assistance, this MCP server helps ground i
 
 ### **Install for MCP clients that support npm installation**
 
-For any MCP client that supports installation via npm, use the command line to install the MCP server to your local machine:
+For any MCP client that supports installation via npm, use the command line to install the [@googlemaps/code-assist-mcp](https://www.npmjs.com/package/@googlemaps/code-assist-mcp) MCP server to your local machine:
 
 ```
 npx -y @googlemaps/code-assist-mcp
