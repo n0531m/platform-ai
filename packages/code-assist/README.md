@@ -11,7 +11,7 @@ When used with an AI agent for coding assistance, this MCP server helps ground i
 
 ## **Requirements**
 
-*   An MCP client, such as the MCP clients built into [Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code), [Cursor](https://cursor.sh/), [Windsurf's Cascade](https://windsurf.com/cascade), and other AI coding assistants.
+*   An MCP client, such as the MCP clients built into [Gemini CLI](https://github.com/google-gemini/gemini-cli), [Gemini Code Assistant](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers), [Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Claude Code](https://www.npmjs.com/package/@anthropic-ai/claude-code), [Cursor](https://cursor.sh/), [Windsurf's Cascade](https://windsurf.com/cascade), [Firebase Studio](https://firebase.google.com/docs/studio/customize-workspace#mcp) and other AI coding assistants.
 *   A local machine on which to clone and run the MCP server that the MCP client can access.
 *   Node.js and npm ([install](https://nodejs.org/en/download)) on the local machine.
 
