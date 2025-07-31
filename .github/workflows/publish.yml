@@ -34,21 +34,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node for Dependency Installation
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install Dependencies
-        run: npm install --workspaces
-
-      # Now configure node with the registry used for publishing
       - name: Setup Node for Publishing
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
           registry-url: 'https://wombat-dressing-room.appspot.com/'
+
+      - name: Install Dependencies
+        run: npm install --workspaces
 
       - name: Publish
         # npm publish will trigger the build via the prepack hook
