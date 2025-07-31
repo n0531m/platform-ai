@@ -1,6 +1,6 @@
 {
   "name": "@googlemaps/code-assist-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
@@ -14,7 +14,7 @@
     "compile": "tsc index.ts && shx chmod +x dist/*.js",
     "start": "node dist/index.js",
     "build": "bun clean && bun build index.ts --outdir dist --target=node",
-    "build:prepare": "bun clean && bun build index.ts --outdir dist --target=node --format=cjs --minify && echo '{\"type\": \"commonjs\"}' > dist/package.json && cp README.md CHANGELOG.md dist",
+    "build:prepare": "bun clean && bun build index.ts --outdir dist --target=node --format=cjs --minify && echo '{\"type\": \"commonjs\"}' > dist/package.json && cp README.md dist",
     "build:dist": "npm run build:prepare && zip -r dist_$(date +%Y%m%d).zip dist",
     "prepack": "npm run build:prepare",
     "test": "bun test tests/unit.test.ts",

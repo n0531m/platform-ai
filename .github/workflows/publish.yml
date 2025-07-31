@@ -41,7 +41,7 @@ jobs:
           registry-url: 'https://wombat-dressing-room.appspot.com/'
 
       - name: Install Dependencies
-        run: npm install --workspaces
+        run: npm install --workspace=packages/code-assist
 
       - name: Publish
         # npm publish will trigger the build via the prepack hook
