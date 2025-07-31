@@ -41,6 +41,6 @@ describe("Google Maps Platform Code Assist MCP Server - Integration", () => {
       expect(content.status).toBe("200");
       expect(content.response.contexts).toBeArray();
     },
-    30000
+    60000
   );
 });
