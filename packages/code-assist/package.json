@@ -1,10 +1,10 @@
 {
   "name": "@googlemaps/code-assist-mcp",
   "version": "0.1.1",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "type": "module",
   "bin": {
-    "google-maps-platform-code-assist": "./dist/index.js"
+    "google-maps-platform-code-assist": "./dist/cindex.js"
   },
   "files": [
     "dist"
