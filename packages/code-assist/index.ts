@@ -100,8 +100,8 @@ export async function getUsageInstructions(server: Server) {
 export const getServer = () => {
     const server = new Server(
         {
-            name: "google-maps-platform-code-assist",
-            version: "0.1",
+            name: "code-assist-mcp",
+            version: "0.1.3",
         },
         {
             capabilities: {
