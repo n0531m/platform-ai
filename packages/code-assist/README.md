@@ -60,6 +60,12 @@ The intended use of these tools is to enrich the context of Generative AI models
 
 This tool sends information including the MCP client's query and IP address to a Google-hosted RAG service. Use of this service is subject to the [Google Privacy Policy](https://policies.google.com/privacy).
 
+## Development
+
+To test that the library will work with `npx` once published, run `npx .` from the package/code-assist root directory. The `package.json` referenced `bin` object specifies the executeable location, and the first line of the built server must contain it's first line as `#!/usr/bin/env node` in order for npx to know that it should use `node` to run the server. The package.json file contains a `build:prepare` script that automatically adds this line to the built server.
+
+
+
 ## **Contributing**
 
 Contributions are welcome. If you'd like to contribute, send us a [pull request](https://github.com/googlemaps/platform-ai/compare) and refer to our [code of conduct](https://github.com/googlemaps/.github/blob/master/?tab=coc-ov-file#readme) and [contributing guide](https://github.com/googlemaps/.github/blob/master/CONTRIBUTING.md).
