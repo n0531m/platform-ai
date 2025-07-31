@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var a9=Object.create;var{getPrototypeOf:i9,defineProperty:Wp,getOwnPropertyNames:Zv,getOwnPropertyDescriptor:n9}=Object,Iv=Object.prototype.hasOwnProperty;var qa=(i,a,n)=>{n=i!=null?a9(i9(i)):{};let p=a||!i||!i.__esModule?Wp(n,"default",{value:i,enumerable:!0}):n;for(let c of Zv(i))if(!Iv.call(p,c))Wp(p,c,{get:()=>i[c],enumerable:!0});return p},Ev=new WeakMap,c9=(i)=>{var a=Ev.get(i),n;if(a)return a;if(a=Wp({},"__esModule",{value:!0}),i&&typeof i==="object"||typeof i==="function")Zv(i).map((p)=>!Iv.call(a,p)&&Wp(a,p,{get:()=>i[p],enumerable:!(n=n9(i,p))||n.enumerable}));return Ev.set(i,a),a},Q=(i,a)=>()=>(a||i((a={exports:{}}).exports,a),a.exports);var Ll=(i,a)=>{for(var n in a)Wp(i,n,{get:a[n],enumerable:!0,configurable:!0,set:(p)=>a[n]=()=>p})};var Hs=Q((wM,Cv)=>{/*!
  * depd
  * Copyright(c) 2014-2018 Douglas Christopher Wilson
