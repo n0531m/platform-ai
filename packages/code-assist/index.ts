@@ -16,6 +16,8 @@
 
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { createServer } from 'http';
+import { Command } from 'commander';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -249,7 +251,17 @@ export async function handleCallTool(request: CallToolRequest, server: Server) {
     };
 }
 
-async function runServer() {
+export async function runServer() {
+    // Parse CLI arguments
+    const program = new Command();
+    program
+        .option('--port <number>', 'port for HTTP transport', '3000')
+        .allowUnknownOption() // Allow other flags to pass through
+        .parse(process.argv);
+
+    const cliOptions = program.opts();
+    const initialPort = parseInt(cliOptions.port, 10);
+
     // Stdio transport
     const stdioTransport = new StdioServerTransport();
     const stdioServer = getServer();
@@ -316,14 +328,25 @@ async function runServer() {
         }));
     });
 
-    const PORT = 3000;
-    app.listen(PORT, (error: any) => {
-        if (error) {
-            console.error('Failed to start HTTP server:', error);
-            process.exit(1);
-        }
-        console.info(`Google Maps Platform Code Assist Server listening on port ${PORT} for HTTP`);
-    });
+    const httpServer = createServer(app);
+
+    const startHttpServer = (port: number, maxAttempts = 10) => {
+        httpServer.once('error', (err: NodeJS.ErrnoException) => {
+            if (err.code === 'EADDRINUSE' && port < initialPort + maxAttempts) {
+                console.warn(`Port ${port} is in use, trying port ${port + 1}...`);
+                startHttpServer(port + 1, maxAttempts);
+            } else {
+                console.error(`Failed to start HTTP server: ${err.message}`);
+                process.exit(1);
+            }
+        });
+
+        httpServer.listen(port, () => {
+            console.info(`Google Maps Platform Code Assist Server listening on port ${port} for HTTP`);
+        });
+    };
+
+    startHttpServer(initialPort);
 }
 
 if (process.env.NODE_ENV !== 'test') {
