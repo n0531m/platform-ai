@@ -251,102 +251,121 @@ export async function handleCallTool(request: CallToolRequest, server: Server) {
     };
 }
 
-export async function runServer() {
-    // Parse CLI arguments
-    const program = new Command();
-    program
-        .option('--port <number>', 'port for HTTP transport', '3000')
-        .allowUnknownOption() // Allow other flags to pass through
-        .parse(process.argv);
+export function runServer() {
+    return new Promise<void>((resolve, reject) => {
+        // Parse CLI arguments
+        const program = new Command();
+        program
+            .option('--port <number>', 'port for HTTP transport', '3000')
+            .allowUnknownOption() // Allow other flags to pass through
+            .parse(process.argv);
 
-    const cliOptions = program.opts();
-    const initialPort = parseInt(cliOptions.port, 10);
+        const cliOptions = program.opts();
+        const initialPort = parseInt(cliOptions.port, 10);
 
-    // Stdio transport
-    const stdioTransport = new StdioServerTransport();
-    const stdioServer = getServer();
-    await stdioServer.connect(stdioTransport);
-    console.info("Google Maps Platform Code Assist Server running on stdio");
+        // Stdio transport
+        const stdioTransport = new StdioServerTransport();
+        const stdioServer = getServer();
+        stdioServer.connect(stdioTransport).then(() => {
+            console.info("Google Maps Platform Code Assist Server running on stdio");
+        });
 
-    // HTTP transport
-    const app = express();
-    app.use(express.json());
-    app.use(cors({
-        origin: '*',
-        exposedHeaders: ['Mcp-Session-Id']
-    }));
+        // HTTP transport
+        const app = express();
+        app.use(express.json());
+        app.use(cors({
+            origin: '*',
+            exposedHeaders: ['Mcp-Session-Id']
+        }));
 
-    app.post('/mcp', async (req: Request, res: Response) => {
-        const httpServer = getServer();
-        try {
-            const httpTransport = new StreamableHTTPServerTransport({
-                sessionIdGenerator: undefined,
-            });
-            await httpServer.connect(httpTransport);
-            await httpTransport.handleRequest(req, res, req.body);
-            res.on('close', () => {
-                console.log('HTTP Request closed');
-                httpTransport.close();
-                httpServer.close();
-            });
-        } catch (error) {
-            console.error('Error handling MCP HTTP request:', error);
-            if (!res.headersSent) {
-                res.status(500).json({
-                    jsonrpc: '2.0',
-                    error: {
-                        code: -32603,
-                        message: 'Internal server error',
-                    },
-                    id: null,
+        app.post('/mcp', async (req: Request, res: Response) => {
+            const httpServer = getServer();
+            try {
+                const httpTransport = new StreamableHTTPServerTransport({
+                    sessionIdGenerator: undefined,
                 });
-            }
-        }
-    });
-
-    app.get('/mcp', async (req: Request, res: Response) => {
-        console.log('Received GET MCP request');
-        res.writeHead(405).end(JSON.stringify({
-            jsonrpc: "2.0",
-            error: {
-                code: -32000,
-                message: "Method not allowed."
-            },
-            id: null
-        }));
-    });
-
-    app.delete('/mcp', async (req: Request, res: Response) => {
-        console.log('Received DELETE MCP request');
-        res.writeHead(405).end(JSON.stringify({
-            jsonrpc: "2.0",
-            error: {
-                code: -32000,
-                message: "Method not allowed."
-            },
-            id: null
-        }));
-    });
-
-    const httpServer = createServer(app);
-
-    const startHttpServer = (port: number, maxAttempts = 10) => {
-        httpServer.once('error', (err: NodeJS.ErrnoException) => {
-            if (err.code === 'EADDRINUSE' && port < initialPort + maxAttempts) {
-                console.warn(`Port ${port} is in use, trying port ${port + 1}...`);
-                startHttpServer(port + 1, maxAttempts);
-            } else {
-                console.error(`Failed to start HTTP server: ${err.message}`);
-                process.exit(1);
+                await httpServer.connect(httpTransport);
+                await httpTransport.handleRequest(req, res, req.body);
+                res.on('close', () => {
+                    console.log('HTTP Request closed');
+                    httpTransport.close();
+                    httpServer.close();
+                });
+            } catch (error) {
+                console.error('Error handling MCP HTTP request:', error);
+                if (!res.headersSent) {
+                    res.status(500).json({
+                        jsonrpc: '2.0',
+                        error: {
+                            code: -32603,
+                            message: 'Internal server error',
+                        },
+                        id: null,
+                    });
+                }
             }
         });
 
-        httpServer.listen(port, () => {
-            console.info(`Google Maps Platform Code Assist Server listening on port ${port} for HTTP`);
+        app.get('/mcp', async (req: Request, res: Response) => {
+            console.log('Received GET MCP request');
+            res.writeHead(405).end(JSON.stringify({
+                jsonrpc: "2.0",
+                error: {
+                    code: -32000,
+                    message: "Method not allowed."
+                },
+                id: null
+            }));
         });
-    };
 
-    startHttpServer(initialPort);
+        app.delete('/mcp', async (req: Request, res: Response) => {
+            console.log('Received DELETE MCP request');
+            res.writeHead(405).end(JSON.stringify({
+                jsonrpc: "2.0",
+                error: {
+                    code: -32000,
+                    message: "Method not allowed."
+                },
+                id: null
+            }));
+        });
+
+        const httpServer = createServer(app);
+
+        const startHttpServer = (port: number, maxAttempts = 11) => {
+            // Stop if we've exceeded the max number of retries
+            if (port >= initialPort + maxAttempts) {
+                const errorMessage = `Failed to start HTTP server: Could not find an open port after ${maxAttempts} attempts, starting from port ${initialPort}.`;
+                console.error(errorMessage);
+                if (process.env.NODE_ENV === 'test') {
+                    return reject(new Error(errorMessage)); // Return to stop execution
+                }
+                return process.exit(1); // Return to stop execution
+            }
+
+            httpServer.once('error', (err: NodeJS.ErrnoException) => {
+                if (err.code === 'EADDRINUSE') {
+                    console.warn(`Port ${port} is in use, trying port ${port + 1}...`);
+                    startHttpServer(port + 1, maxAttempts);
+                } else {
+                    const errorMessage = `Failed to start HTTP server: ${err.message}`;
+                    console.error(errorMessage);
+                    if (process.env.NODE_ENV === 'test') {
+                        reject(new Error(errorMessage));
+                    } else {
+                        process.exit(1);
+                    }
+                }
+            });
+
+            httpServer.listen(port, () => {
+                console.info(`Google Maps Platform Code Assist Server listening on port ${port} for HTTP`);
+                resolve();
+            });
+        };
+
+        startHttpServer(initialPort);
+    });
 }
 
 if (process.env.NODE_ENV !== 'test') {
