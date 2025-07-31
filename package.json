@@ -8,6 +8,7 @@
     "url": "https://github.com/googlemaps/platform-ai.git"
   },
   "publishConfig": {
+    "access": "public",
     "registry": "https://wombat-dressing-room.appspot.com"
   },
   "scripts": {
