@@ -316,14 +316,22 @@ async function runServer() {
         }));
     });
 
-    const PORT = 3000;
-    app.listen(PORT, (error: any) => {
-        if (error) {
-            console.error('Failed to start HTTP server:', error);
-            process.exit(1);
-        }
-        console.info(`Google Maps Platform Code Assist Server listening on port ${PORT} for HTTP`);
-    });
+    const startHttpServer = (port: number) => {
+        const server = app.listen(port, () => {
+            console.info(`Starting Google Maps Platform Code Assist Server listening on port ${port} for HTTP`);
+        })
+        .on('error', (error: any) => {
+            if (error.code === 'EADDRINUSE') {
+                console.log(`Port ${port} is in use, trying port ${port + 1}...`);
+                startHttpServer(port + 1);
+            } else {
+                console.error('Failed to start HTTP server:', error);
+                process.exit(1);
+            }
+        });
+    };
+
+    startHttpServer(3000);
 }
 
 if (process.env.NODE_ENV !== 'test') {
