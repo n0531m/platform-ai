@@ -28,7 +28,7 @@ When used with an AI agent for coding assistance, this MCP server helps ground i
 For any MCP client that supports installation via npm, use the command line to install the [@googlemaps/code-assist-mcp](https://www.npmjs.com/package/@googlemaps/code-assist-mcp) MCP server to your local machine:
 
 ```
-npx -y @googlemaps/code-assist-mcp
+npx -y @googlemaps/code-assist-mcp [--port 3000]
 ```
 
 ### **Install via JSON configuration (all other MCP clients)**
@@ -40,7 +40,7 @@ Most MCP clients have a JSON file for their MCP configuration such as **mcp.json
   "mcpServers": {
     "google-maps-platform-code-assist": {
       "command": "npx",
-      "args": ["-y", "@googlemaps/code-assist-mcp"]
+      "args": ["-y", "@googlemaps/code-assist-mcp", "--port", "3000"]
     }
   }
 }
