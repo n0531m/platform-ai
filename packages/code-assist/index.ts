@@ -251,11 +251,17 @@ export async function handleCallTool(request: CallToolRequest, server: Server) {
 }
 
 async function runServer() {
+
+    // For stdio, redirect all console logs to stderr.
+    // This change ensures that the stdout stream remains clean
+    // for the JSON-RPC protocol expected by MCP Clients
+    console.log = console.error;
+
     // Stdio transport
     const stdioTransport = new StdioServerTransport();
     const stdioServer = getServer();
     await stdioServer.connect(stdioTransport);
-    console.info("Google Maps Platform Code Assist Server running on stdio");
+    console.log("Google Maps Platform Code Assist Server running on stdio");
 
     // HTTP transport
     const app = express();
@@ -341,7 +347,7 @@ export const startHttpServer = (app: express.Express, p: number): Promise<http.S
             .on('listening', () => {
                 const address = server.address();
                 const listeningPort = (address && typeof address === 'object') ? address.port : p;
-                console.info(`Google Maps Platform Code Assist Server listening on port ${listeningPort} for HTTP`);
+                console.log(`Google Maps Platform Code Assist Server listening on port ${listeningPort} for HTTP`);
                 resolve(server);
             })
             .on('error', (error: any) => {
@@ -351,7 +357,7 @@ export const startHttpServer = (app: express.Express, p: number): Promise<http.S
                         .on('listening', () => {
                             const address = newServer.address();
                             const listeningPort = (address && typeof address === 'object') ? address.port : 0;
-                            console.info(`Google Maps Platform Code Assist Server listening on port ${listeningPort} for HTTP`);
+                            console.log(`Google Maps Platform Code Assist Server listening on port ${listeningPort} for HTTP`);
                             resolve(newServer);
                         })
                         .on('error', (err: any) => {
