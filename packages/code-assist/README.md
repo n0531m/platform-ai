@@ -48,6 +48,24 @@ Most MCP clients have a JSON file for their MCP configuration such as **mcp.json
 
 To deploy it in **Gemini Code Assist** follow these [instructions](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers).
 
+## **Configuration**
+
+You can specify the port on which the HTTP server runs in a few ways:
+
+1.  **`--port` argument**: Pass the `--port` flag when running the server.
+    ```bash
+    npx -y @googlemaps/code-assist-mcp --port 5000
+    ```
+
+2.  **`PORT` environment variable**: Set the `PORT` environment variable.
+    ```bash
+    PORT=5000 npx -y @googlemaps/code-assist-mcp
+    ```
+
+The `--port` argument takes precedence over the `PORT` environment variable. If neither is specified, the server will default to port `3000`.
+
+If the specified port is unavailable, the server will automatically try to start on a random available port.
+
 ## **MCP Tools and Resources**
 
 This toolkit provides tools and resources to ground AI-generated code in official, up-to-date Google Maps Platform guidance.

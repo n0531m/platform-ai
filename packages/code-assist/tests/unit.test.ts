@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { expect, test, describe, mock, beforeEach, spyOn } from "bun:test";
+import { expect, test, describe, mock, beforeEach, spyOn, afterEach } from "bun:test";
 import axios from "axios";
-import { getUsageInstructions, getServer, handleCallTool, _setUsageInstructions, handleReadResource } from "../index.js";
+import { getUsageInstructions, getServer, handleCallTool, _setUsageInstructions, handleReadResource, startHttpServer } from "../index.js";
 import { CallToolRequest, ReadResourceRequest } from "@modelcontextprotocol/sdk/types.js";
+import express from 'express';
+import http from 'http';
 
 mock.module("axios", () => ({
   default: {
@@ -175,4 +177,42 @@ describe("Google Maps Platform Code Assist MCP Server", () => {
 
     expect(result.content?.[0].text).toBe("Invalid Tool called");
   });
+});
+
+describe("startHttpServer", () => {
+    let app: express.Express;
+    let testServer: http.Server;
+    const testPort = 5001;
+
+    beforeEach(() => {
+        app = express();
+    });
+
+    afterEach((done: () => void) => {
+        if (testServer && testServer.listening) {
+            testServer.close(() => done());
+        } else {
+            done();
+        }
+    });
+
+    test("should start on a random port if the preferred port is in use", async () => {
+        // Create a server to occupy the port
+        await new Promise<void>(resolve => {
+            testServer = http.createServer((req, res) => {
+                res.writeHead(200);
+                res.end('hello world');
+            });
+            testServer.listen(testPort, () => resolve());
+        });
+
+        const server = await startHttpServer(app, testPort);
+        const address = server.address();
+        const listeningPort = (address && typeof address === 'object') ? address.port : 0;
+
+        expect(listeningPort).not.toBe(testPort);
+        expect(listeningPort).toBeGreaterThan(0);
+
+        await new Promise<void>(resolve => server.close(() => resolve()));
+    });
 });
