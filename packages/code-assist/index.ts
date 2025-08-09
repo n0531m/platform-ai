@@ -15,6 +15,7 @@
  */
 
 import express, { Request, Response } from 'express';
+import http from 'http';
 import cors from 'cors';
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
@@ -316,15 +317,60 @@ async function runServer() {
         }));
     });
 
-    const PORT = 3000;
-    app.listen(PORT, (error: any) => {
-        if (error) {
-            console.error('Failed to start HTTP server:', error);
-            process.exit(1);
+    const portIndex = process.argv.indexOf('--port');
+    let port = 3000;
+
+    if (portIndex > -1 && process.argv.length > portIndex + 1) {
+        const parsedPort = parseInt(process.argv[portIndex + 1], 10);
+        if (!isNaN(parsedPort)) {
+            port = parsedPort;
         }
-        console.info(`Google Maps Platform Code Assist Server listening on port ${PORT} for HTTP`);
-    });
+    } else if (process.env.PORT) {
+        const envPort = parseInt(process.env.PORT, 10);
+        if (!isNaN(envPort)) {
+            port = envPort;
+        }
+    }
+
+    await startHttpServer(app, port);
 }
+
+export const startHttpServer = (app: express.Express, p: number): Promise<http.Server> => {
+    return new Promise((resolve, reject) => {
+        const server = app.listen(p)
+            .on('listening', () => {
+                const address = server.address();
+                const listeningPort = (address && typeof address === 'object') ? address.port : p;
+                console.info(`Google Maps Platform Code Assist Server listening on port ${listeningPort} for HTTP`);
+                resolve(server);
+            })
+            .on('error', (error: any) => {
+                if (error.code === 'EADDRINUSE') {
+                    console.log(`Port ${p} is in use, trying a random available port...`);
+                    const newServer = app.listen(0)
+                        .on('listening', () => {
+                            const address = newServer.address();
+                            const listeningPort = (address && typeof address === 'object') ? address.port : 0;
+                            console.info(`Google Maps Platform Code Assist Server listening on port ${listeningPort} for HTTP`);
+                            resolve(newServer);
+                        })
+                        .on('error', (err: any) => {
+                            console.error('Failed to start HTTP server on fallback port:', err);
+                            if (process.env.NODE_ENV !== 'test') {
+                                process.exit(1);
+                            }
+                            reject(err);
+                        });
+                } else {
+                    console.error('Failed to start HTTP server:', error);
+                    if (process.env.NODE_ENV !== 'test') {
+                        process.exit(1);
+                    }
+                    reject(error);
+                }
+            });
+    });
+};
 
 if (process.env.NODE_ENV !== 'test') {
     runServer().catch((error) => {
