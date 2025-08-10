@@ -23,12 +23,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/googlemaps/platform-ai.git",
-    "directory": "packages/code-assist"
-  },
+  "description": "Google Maps Platform Code Assist MCP (Model Context Protocol) service",
   "dependencies": {
     "@google-cloud/vertexai": "^1.10.0",
     "@modelcontextprotocol/sdk": "^1.11.3",
