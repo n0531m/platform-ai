@@ -34,17 +34,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node for Publishing
+      # 1. Setup Node using the default registry (npmjs.org)
+      - name: Setup Node (Default Registry)
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://wombat-dressing-room.appspot.com/'
 
+      # Setup Bun (required by the package's build/prepack scripts)
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      # 2. Install Dependencies from the default registry
       - name: Install Dependencies
         run: npm install --workspace=packages/code-assist
 
+      # 3. Setup Node again, configuring the WDR registry for publishing
+      - name: Setup Node for Publishing (WDR Registry)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://wombat-dressing-room.appspot.com/"
+
+      # 4. Publish to WDR
       - name: Publish
         # npm publish will trigger the build via the prepack hook
         run: npm publish --workspace=packages/code-assist
         env:
+          # The NODE_AUTH_TOKEN is used to authenticate against the Wombat Dressing Room registry.
           NODE_AUTH_TOKEN: ${{ secrets.NPM_WOMBOT_TOKEN }}
