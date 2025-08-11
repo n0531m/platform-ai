@@ -52,12 +52,8 @@ npx -y @googlemaps/code-assist-mcp
 
 Add the server to your preferred AI client's MCP configuration file. Find your client below for specific, verified instructions.
 
-  * **[Gemini Code Assist & Gemini CLI](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers)**
-
-      * Add to your `~/.gemini/settings.json` file.
-
-    <!-- end list -->
-
+* **[Gemini Code Assist & Gemini CLI](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers)**
+    * Add to your `~/.gemini/settings.json` file.
     ```json
     {
       "mcpServers": {
@@ -69,32 +65,31 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     }
     ```
 
-**[Claude Code](https://docs.anthropic.com/en/docs/claude-code/mcp)**
-
-*   Add the server directly from your command line:
-    
+* **[Claude Code](https://docs.anthropic.com/en/docs/claude-code/mcp)**
+    * Add the server directly from your command line (assuming you have Claude Code already installed):
     ```bash
-        claude mcp add google-maps-platform-code-assist -- "npx -y @googlemaps/code-assist-mcp"
+        claude mcp add google-maps-platform-code-assist -- npx -y @googlemaps/code-assist-mcp
     ```
-        
-    
-*   **Pro-Tip:**
-    
-    *   Verify the installation by running `claude mcp list`.
-        
-    *   To share the server with your team, add it to the project's shared configuration by using the `--scope project` flag.
-        
-*   **Windows Users:** On native Windows (not WSL), you must use the `cmd /c` wrapper for `npx` commands to work correctly.
-
-    ```
+    * Verify the installation by running `claude mcp list`.
+    * **Windows Users:** On native Windows (not WSL), you must use the `cmd /c` wrapper for `npx` commands to work correctly.
+    ```bash
     claude mcp add google-maps-platform-code-assist -- cmd /c "npx -y @googlemaps/code-assist-mcp"
     ```
+    * Alternatively, you can add the sever manually to your Claude config file `~/.claude.json`
+    ```json
+    "mcpServers": {
+        "google-maps-platform-code-assist": {
+          "command": "npx",
+          "args": [
+            "-y", "@googlemaps/code-assist-mcp"
+          ]
+        }
+      }
+    ```
 
-
-  * **[Cursor](https://www.google.com/search?q=https://cursor.sh/help/mcp)**
-      * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
-      * Add to your workspace's `.cursor-settings/mcp.json` file.
-
+* **[Cursor](https://www.google.com/search?q=https://cursor.sh/help/mcp)**
+    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
+    * Add to your workspace's `.cursor-settings/mcp.json` file.
     ```json
     {
       "mcpServers": {
@@ -106,10 +101,8 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     }
     ```
 
-  * **[Firebase Studio](https://firebase.google.com/docs/studio/customize-workspace)**
-
-      * Add to your project's `mcp.json` file.
-
+* **[Firebase Studio](https://firebase.google.com/docs/studio/customize-workspace)**
+    * Add to your project's `mcp.json` file.
     ```json
     {
       "mcpServers": {
@@ -121,10 +114,8 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     }
     ```
 
-  * **[Android Studio](https://developer.android.com/studio/gemini/add-mcp-server)**
-
-      * Create a `mcp.json` file and place it in the [configuration directory](https://developer.android.com/studio/troubleshoot#directories) of Android Studio. Add the Code Assist server to the list:
-
+* **[Android Studio](https://developer.android.com/studio/gemini/add-mcp-server)**
+    * Create a `mcp.json` file and place it in the [configuration directory](https://developer.android.com/studio/troubleshoot#directories) of Android Studio. Add the Code Assist server to the list:
     ```json
     {
       "mcpServers": {
@@ -136,10 +127,8 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     }
     ```
 
-  * **Other Clients ([Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Windsurf](https://windsurf.com/cascade), [Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp) etc.)**
-
-      * Most clients use a similar `mcp.json` or `mcp_config.json`. Refer to their documentation and add the following:
-
+* **Other Clients ([Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Windsurf](https://windsurf.com/cascade), [Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp) etc.)**
+    * Most clients use a similar `mcp.json` or `mcp_config.json`. Refer to their documentation and add the following:
     ```json
     {
       "mcpServers": {
