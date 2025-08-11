@@ -4,7 +4,7 @@
 [![Discord](https://img.shields.io/discord/676948200904589322?color=6A7EC2&logo=discord&logoColor=ffffff)][Discord server]
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
 
-# Google Maps Platform Code Assist MCP
+# Google Maps Platform Code Assist Toolkit (alpha)
 
 Enable your favorite AI assistant or IDE to generate code grounded in up-to-date, official Google Maps Platform documentation and code samples.
 
