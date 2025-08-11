@@ -4,7 +4,9 @@
 [![Discord](https://img.shields.io/discord/676948200904589322?color=6A7EC2&logo=discord&logoColor=ffffff)][Discord server]
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
 
-# Google Maps Platform Code Assist Toolkit (alpha)
+
+# <img height="48" width="48" src="https://avatars.githubusercontent.com/u/3717923?s=200&v=4" alt="Google Maps Platform Logo" /> Google Maps Platform Code Assist Toolkit 
+*Alpha version*
 
 Enable your favorite AI assistant or IDE to generate code grounded in up-to-date, official Google Maps Platform documentation and code samples.
 
@@ -13,6 +15,8 @@ npx -y @googlemaps/code-assist-mcp
 ```
 
 Get grounded, accurate, and relevant code for Google Maps Platform directly within your development workflow.
+
+![](./code-assist-preview.jpg) 
 
 > [\!NOTE]
 > This is the repository for an MCP server that provides access to Google Maps Platform documentation via a RAG service. It is not a Google Maps Platform Core Service.
