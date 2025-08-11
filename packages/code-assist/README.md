@@ -2,7 +2,7 @@
 ![Alpha](https://img.shields.io/badge/release-alpha-orange)
 [![License](https://img.shields.io/github/license/googlemaps/platform-ai?color=blue)][license]
 [![Discord](https://img.shields.io/discord/676948200904589322?color=6A7EC2&logo=discord&logoColor=ffffff)][Discord server]
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
 
 
 # <img height="48" width="48" src="https://avatars.githubusercontent.com/u/3717923?s=200&v=4" alt="Google Maps Platform Logo" /> Google Maps Platform Code Assist Toolkit 
@@ -10,7 +10,7 @@
 
 🪄 Make your favorite AI assistant or IDE a Google Maps Platform expert. With Code Assist, AI Agents like Gemini CLI, Claude Code, and Cursor can generate code and answer developer questions grounded in up-to-date, official Google Maps Platform documentation and code samples -- directly in your dev workflow. 
 
-🚀 Whether you are making precisse AI-Assisted code changes, or vibecoding a prototype - Code Assist can help you accomplish your task faster and easier . 
+🚀 Whether you are making precison AI-Assisted code changes or vibecoding a new app prototype - Code Assist can help you accomplish your task faster and easier. 
 
 Below is an example MCP Client response to a user's question with Code Assist MCP installed:
 
@@ -78,7 +78,7 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     ```
 
 * **[Cursor](https://docs.cursor.com/en/context/mcp)**
-    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
+    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
     * Add to your workspace's `.cursor-settings/mcp.json` file.
     ```json
     {
