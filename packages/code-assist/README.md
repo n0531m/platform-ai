@@ -77,7 +77,7 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
       }
     ```
 
-* **[Cursor](https://www.google.com/search?q=https://cursor.sh/help/mcp)**
+* **[Cursor](https://docs.cursor.com/en/context/mcp)**
     * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform-code-assist&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
     * Add to your workspace's `.cursor-settings/mcp.json` file.
     ```json
