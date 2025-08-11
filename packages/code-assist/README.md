@@ -116,19 +116,35 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
       }
     }
     ```
+* **[Cline](https://docs.cline.bot/mcp/configuring-mcp-servers)**
+    * Option 1: install using the [Cline MCP GUI](https://docs.cline.bot/mcp/configuring-mcp-servers)
+    * Option 2: manually / programatically install using the Cline MCP config file. The config file is located at:
+        * **macOS:** `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+        *   **Windows:** `%APPDATA%/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+        *   **Linux:** `~/.config/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`
+        *   Add the following to your MCP configuration in `cline_mcp_settings.json`: 
+            ```json
+            {
+              "mcpServers": {
+                "google-maps-platform-code-assist": {
+                  "command": "npx",
+                  "args": ["-y", "@googlemaps/code-assist-mcp"]
+                }
+              }
+            }
+            ```
+* **[Roo Code](https://docs.roocode.com/features/mcp/using-mcp-in-roo)**
+    * Option 1: install using the [Roo MCP GUI](https://docs.roocode.com/features/mcp/using-mcp-in-roo)
+    * Option 2: manually / programatically install using the Roo Code config file. The config file is located at:
+        * **macOS:** `~/Library/Application Support/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json`
+        * **Windows:** `%APPDATA%\Code\User\globalStorage\rooveterinaryinc.roo-cline\settings\mcp_settings.json`
+        * **Linux:** `~/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json`
 
-* **Other Clients ([Cline](https://cline.bot/), [Roo Code](https://github.com/RooCodeInc/Roo-Code), [Windsurf](https://windsurf.com/cascade), [Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp) etc.)**
-    * Most clients use a similar `mcp.json` or `mcp_config.json`. Refer to their documentation and add the following:
-    ```json
-    {
-      "mcpServers": {
-        "google-maps-platform-code-assist": {
-          "command": "npx",
-          "args": ["-y", "@googlemaps/code-assist-mcp"]
-        }
-      }
-    }
-    ```
+* **[Windsurf](https://docs.windsurf.com/windsurf/cascade/mcp)**
+    * Similar to Cursor instructions above.
+
+* **[Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp)**
+    * Similar to Cline and Roo Code instructions above.
 -----
 
 ### Use as a Remote MCP Server
