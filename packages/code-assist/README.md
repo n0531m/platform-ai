@@ -249,10 +249,6 @@ This server supports two standard MCP communication protocols:
 
 -----
 
-## **Contributing**
-
-Contributions are welcome\! Please see our [Contributing Guide](https://www.google.com/search?q=CONTRIBUTING.md) and [Code of Conduct](https://github.com/googlemaps/.github/blob/master/?tab=coc-ov-file#readme).
-
 ## **Terms of Service**
 
 This toolkit provides tools to describe the use of Google Maps Platform services. Use of Google Maps Platform services is subject to the Google Maps Platform [Terms of Service](https://cloud.google.com/maps-platform/terms), however, if your billing address is in the European Economic Area, the Google Maps Platform [EEA Terms of Service](https://cloud.google.com/terms/maps-platform/eea) will apply to your use of the Services. Functionality varies by region. [Learn more](https://developers.google.com/maps/comms/eea/faq).
