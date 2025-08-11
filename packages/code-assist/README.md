@@ -8,13 +8,11 @@
 # <img height="48" width="48" src="https://avatars.githubusercontent.com/u/3717923?s=200&v=4" alt="Google Maps Platform Logo" /> Google Maps Platform Code Assist Toolkit 
 *Alpha version*
 
-Enable your favorite AI assistant or IDE to generate code grounded in up-to-date, official Google Maps Platform documentation and code samples.
+🪄 Make your favorite AI assistant or IDE a Google Maps Platform expert. With Code Assist, AI Agents like Gemini CLI, Claude Code, and Cursor can generate code and answer developer questions grounded in up-to-date, official Google Maps Platform documentation and code samples -- directly in your dev workflow. 
 
-```bash
-npx -y @googlemaps/code-assist-mcp
-```
+🚀 Whether you are making precisse AI-Assisted code changes, or vibecoding a prototype - Code Assist can help you accomplish your task faster and easier . 
 
-Get grounded, accurate, and relevant code for Google Maps Platform directly within your development workflow.
+Below is an example MCP Client response to a user's question with Code Assist MCP installed:
 
 ![](./code-assist-preview.jpg) 
 
@@ -40,15 +38,7 @@ You can run the Code Assist MCP server either on your local machine or remotely 
 
 Run the server on your local machine for use with AI-assisted IDEs (like VS Code, Android Studio, Cursor) or desktop AI applications (like Gemini CLI). This is the simplest and most common setup.
 
-**1. Run the Server locally**
-
-Open your terminal and run the following command. This will download and start the server. Typically developers won't use this technique directly, but instead in combination with their MCP Client of choice e.g. Cline, Cursor, Claude Code, Gemini CLI, etc.
-
-```bash
-npx -y @googlemaps/code-assist-mcp
-```
-
-**2. Configure Your Client**
+#### Configure Your Client
 
 Add the server to your preferred AI client's MCP configuration file. Find your client below for specific, verified instructions.
 
