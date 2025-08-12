@@ -92,7 +92,7 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     ```
 
 * **[Firebase Studio](https://firebase.google.com/docs/studio/customize-workspace)**
-    * Add to your project's `mcp.json` file.
+    * Add to your project's `mcp.json` file in the `.idx` folder in your Firebase Studio workspace
     ```json
     {
       "mcpServers": {
