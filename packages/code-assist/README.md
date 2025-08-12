@@ -129,7 +129,11 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
                 "google-maps-platform-code-assist": {
                   "command": "npx",
                   "args": ["-y", "@googlemaps/code-assist-mcp"]
-                }
+                },
+                "alwaysAllow": [
+                  "retrieve-instructions",
+                  "retrieve-google-maps-platform-docs"
+                ]
               }
             }
             ```
@@ -139,12 +143,31 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
         * **macOS:** `~/Library/Application Support/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json`
         * **Windows:** `%APPDATA%\Code\User\globalStorage\rooveterinaryinc.roo-cline\settings\mcp_settings.json`
         * **Linux:** `~/.config/Code/User/globalStorage/rooveterinaryinc.roo-cline/settings/mcp_settings.json`
+        * Add the following to your MCP configuration in `mcp_settings.json`: 
+            ```json
+            {
+              "mcpServers": {
+                "google-maps-platform-code-assist": {
+                  "command": "npx",
+                  "args": ["-y", "@googlemaps/code-assist-mcp"]
+                },
+                "alwaysAllow": [
+                  "retrieve-instructions",
+                  "retrieve-google-maps-platform-docs"
+                ]
+              }
+            }
+            ```
 
 * **[Windsurf](https://docs.windsurf.com/windsurf/cascade/mcp)**
     * Similar to Cursor instructions above.
 
 * **[Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp)**
     * Similar to Cline and Roo Code instructions above.
+      
+* **[Kilo Code](https://kilocode.ai/docs/features/mcp/using-mcp-in-kilo-code)**
+    * Similar to the Roo Code instructions above 
+
 -----
 
 ### Use as a Remote MCP Server
