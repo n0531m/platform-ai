@@ -2,7 +2,7 @@
 ![Alpha](https://img.shields.io/badge/release-alpha-orange)
 [![License](https://img.shields.io/github/license/googlemaps/platform-ai?color=blue)][license]
 [![Discord](https://img.shields.io/discord/676948200904589322?color=6A7EC2&logo=discord&logoColor=ffffff)][Discord server]
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=eyJjb21tYW5kIjoibnB4IC15IEBnb29nbGVtYXBzL2NvZGUtYXNzaXN0LW1jcCJ9)
 
 
 # <img height="48" width="48" src="https://avatars.githubusercontent.com/u/3717923?s=200&v=4" alt="Google Maps Platform Logo" /> Google Maps Platform Code Assist Toolkit 
@@ -78,7 +78,7 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     ```
 
 * **[Cursor](https://docs.cursor.com/en/context/mcp)**
-    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwJTQwZ29vZ2xlbWFwcyUyRmNvZGUtYXNzaXN0LW1jcCUyMiU3RA%3D%3D)
+    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=eyJjb21tYW5kIjoibnB4IC15IEBnb29nbGVtYXBzL2NvZGUtYXNzaXN0LW1jcCJ9)
     * Add to your workspace's `.cursor-settings/mcp.json` file.
     ```json
     {
