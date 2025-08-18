@@ -43,7 +43,12 @@ Run the server on your local machine for use with AI-assisted IDEs (like VS Code
 Add the server to your preferred AI client's MCP configuration file. Find your client below for specific, verified instructions.
 
 * **[Gemini Code Assist & Gemini CLI](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers)**
-    * Add to your `~/.gemini/settings.json` file.
+    * Option 1 - Add the server directly from your command line (assuming you have Gemini CLI already installed):
+        ```bash
+         gemini mcp add google-maps-platform-code-assist npx -y @googlemaps/code-assist-mcp`
+        ```
+      * Verify the installation by running `gemini mcp list`.
+    * Option 2 - Add the MCP server config manually to your `~/.gemini/settings.json` file.
     ```json
     {
       "mcpServers": {
@@ -56,16 +61,16 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     ```
 
 * **[Claude Code](https://docs.anthropic.com/en/docs/claude-code/mcp)**
-    * Add the server directly from your command line (assuming you have Claude Code already installed):
-    ```bash
-        claude mcp add google-maps-platform-code-assist -- npx -y @googlemaps/code-assist-mcp
-    ```
-    * Verify the installation by running `claude mcp list`.
-    * **Windows Users:** On native Windows (not WSL), you must use the `cmd /c` wrapper for `npx` commands to work correctly.
-    ```bash
-    claude mcp add google-maps-platform-code-assist -- cmd /c "npx -y @googlemaps/code-assist-mcp"
-    ```
-    * Alternatively, you can add the sever manually to your Claude config file `~/.claude.json`
+    * Option 1 - Add the server directly from your command line (assuming you have Claude Code already installed):
+        ```bash
+            claude mcp add google-maps-platform-code-assist -- npx -y @googlemaps/code-assist-mcp
+        ```
+        * Verify the installation by running `claude mcp list`.
+        * **Windows Users:** On native Windows (not WSL), you must use the `cmd /c` wrapper for `npx` commands to work correctly.
+        ```bash
+        claude mcp add google-maps-platform-code-assist -- cmd /c "npx -y @googlemaps/code-assist-mcp"
+        ```
+    * Option 2 - Add the sever manually to your Claude config file `~/.claude.json`
     ```json
     "mcpServers": {
         "google-maps-platform-code-assist": {
@@ -78,8 +83,8 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
     ```
 
 * **[Cursor](https://docs.cursor.com/en/context/mcp)**
-    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=eyJjb21tYW5kIjoibnB4IC15IEBnb29nbGVtYXBzL2NvZGUtYXNzaXN0LW1jcCJ9)
-    * Add to your workspace's `.cursor-settings/mcp.json` file.
+    * [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=google-maps-platform&config=eyJjb21tYW5kIjoibnB4IC15IEBnb29nbGVtYXBzL2NvZGUtYXNzaXN0LW1jcCJ9) <-- If you already have Cursor installed, click here to install Google Maps Platform Code Assist MCP directly.
+    * Otherwise, add it to your workspace's `.cursor-settings/mcp.json` file.
     ```json
     {
       "mcpServers": {
