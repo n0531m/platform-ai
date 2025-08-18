@@ -45,7 +45,7 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
 * **[Gemini Code Assist & Gemini CLI](https://developers.google.com/gemini-code-assist/docs/use-agentic-chat-pair-programmer#configure-mcp-servers)**
     * Option 1 - Add the server directly from your command line (assuming you have Gemini CLI already installed):
         ```bash
-         gemini mcp add google-maps-platform-code-assist npx -y @googlemaps/code-assist-mcp`
+         gemini mcp add google-maps-platform-code-assist npx -y @googlemaps/code-assist-mcp
         ```
       * Verify the installation by running `gemini mcp list`.
     * Option 2 - Add the MCP server config manually to your `~/.gemini/settings.json` file.
