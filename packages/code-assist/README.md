@@ -190,14 +190,21 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
             }
             ```
 
+* **[Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp)**
+    * When in Agent mode, Click "Tools" and then in the top header "Configure Tools" then "Install from an NPM package name" (See screenshots below)
+    * <img width="597" height="199" alt="image" src="https://github.com/user-attachments/assets/061e685b-749a-4267-a471-3845c80e16b5" />
+
+    * <img width="738" height="114" alt="image" src="https://github.com/user-attachments/assets/1f8b2879-639f-4d47-b440-a0f7b539ed09" />
+    * <img width="718" height="217" alt="image" src="https://github.com/user-attachments/assets/0c3c89d0-35ab-4c31-bd39-cf21d7c0724e" />
+    * Enter pacakge name `@googlemaps/code-assist-mcp` and ENTER, accepting the install and using the default port 3000, then ENTER one last time to confirm the change
+    * <img width="717" height="114" alt="image" src="https://github.com/user-attachments/assets/d6ba49d2-0207-4bdc-9637-18f7307f767c" />
+
+
 * **[Windsurf](https://docs.windsurf.com/windsurf/cascade/mcp)**
     * Similar to Cursor instructions above.
-
-* **[Microsoft Copilot](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-extend-action-mcp)**
-    * Similar to Cline and Roo Code instructions above.
       
 * **[Kilo Code](https://kilocode.ai/docs/features/mcp/using-mcp-in-kilo-code)**
-    * Similar to the Roo Code instructions above 
+    * Similar to the Cline and Roo Code instructions above 
 
 <!-- [END Local_Setup] -->
 
