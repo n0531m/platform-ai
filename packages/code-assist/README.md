@@ -133,12 +133,12 @@ Add the server to your preferred AI client's MCP configuration file. Find your c
               "mcpServers": {
                 "google-maps-platform-code-assist": {
                   "command": "npx",
-                  "args": ["-y", "@googlemaps/code-assist-mcp"]
-                },
-                "alwaysAllow": [
-                  "retrieve-instructions",
-                  "retrieve-google-maps-platform-docs"
-                ]
+                  "args": ["-y", "@googlemaps/code-assist-mcp"],    
+                  "alwaysAllow": [
+                    "retrieve-instructions",
+                    "retrieve-google-maps-platform-docs"
+                  ]
+                }
               }
             }
             ```
