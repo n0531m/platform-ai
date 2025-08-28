@@ -17,12 +17,39 @@
 import express, { Request, Response } from 'express';
 import http from 'http';
 import cors from 'cors';
+import { randomUUID } from "node:crypto";
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { Tool, CallToolRequest, CallToolRequestSchema, ListToolsRequestSchema, Resource, ListResourcesRequestSchema, ReadResourceRequest, ReadResourceRequestSchema } from '@modelcontextprotocol/sdk/types.js';
+import { Tool, CallToolRequest, CallToolRequestSchema, ListToolsRequestSchema, Resource, ListResourcesRequestSchema, ReadResourceRequest, ReadResourceRequestSchema, isInitializeRequest } from '@modelcontextprotocol/sdk/types.js';
 import { ragEndpoint, DEFAULT_CONTEXTS } from './config.js';
 import axios from 'axios';
+
+// MCP Streamable HTTP compliance: Accept header validation
+function validateAcceptHeader(req: Request): boolean {
+  const acceptHeader = req.headers.accept;
+  if (!acceptHeader) return false;
+  
+  const acceptedTypes = acceptHeader.split(',').map(type => type.trim().split(';')[0]);
+  return acceptedTypes.includes('application/json') && acceptedTypes.includes('text/event-stream');
+}
+
+// Feature 4: Origin header validation for DNS rebinding protection
+function validateOriginHeader(req: Request): boolean {
+  const origin = req.headers.origin;
+  
+  // Allow requests without Origin header (server-to-server)
+  if (!origin) return true;
+  
+  // For development, allow localhost origins
+  if (process.env.NODE_ENV !== 'production') {
+    return origin.startsWith('http://localhost') || origin.startsWith('https://localhost');
+  }
+  
+  // In production, validate against allowed origins
+  const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
+  return allowedOrigins.includes(origin);
+}
 
 const RetrieveGoogleMapsPlatformDocs: Tool = {
     name: 'retrieve-google-maps-platform-docs',
@@ -69,6 +96,9 @@ const instructionsResource: Resource = {
 };
 
 let usageInstructions: any = null;
+
+// Session management for StreamableHTTP transport
+const transports = new Map<string, StreamableHTTPServerTransport>();
 
 export function _setUsageInstructions(value: any) {
     usageInstructions = value;
@@ -263,7 +293,7 @@ async function runServer() {
     await stdioServer.connect(stdioTransport);
     console.log("Google Maps Platform Code Assist Server running on stdio");
 
-    // HTTP transport
+    // HTTP transport with session management
     const app = express();
     app.use(express.json());
     app.use(cors({
@@ -271,56 +301,78 @@ async function runServer() {
         exposedHeaders: ['Mcp-Session-Id']
     }));
 
-    app.post('/mcp', async (req: Request, res: Response) => {
-        const httpServer = getServer();
+    app.all('/mcp', async (req: Request, res: Response) => {
+        if (!validateOriginHeader(req)) {
+            return res.status(403).json({
+                jsonrpc: '2.0',
+                error: { code: -32000, message: 'Forbidden: Invalid or missing Origin header', data: { code: 'INVALID_ORIGIN' } },
+                id: null,
+            });
+        }
+
+        if (!validateAcceptHeader(req)) {
+            return res.status(406).json({
+                jsonrpc: '2.0',
+                error: { code: -32000, message: 'Not Acceptable: Accept header must include both application/json and text/event-stream', data: { code: 'INVALID_ACCEPT_HEADER' } },
+                id: null,
+            });
+        }
+
+        const sessionId = req.headers['mcp-session-id'] as string | undefined;
+        let transport: StreamableHTTPServerTransport;
+
+        if (sessionId && transports.has(sessionId)) {
+            transport = transports.get(sessionId)!;
+        } else if (!sessionId && isInitializeRequest(req.body)) {
+            transport = new StreamableHTTPServerTransport({
+                sessionIdGenerator: () => randomUUID(),
+                onsessioninitialized: (newSessionId) => {
+                    transports.set(newSessionId, transport);
+                    console.log(`StreamableHTTP session initialized: ${newSessionId}`);
+                }
+            });
+
+            transport.onclose = () => {
+                const sid = transport.sessionId;
+                if (sid && transports.has(sid)) {
+                    transports.delete(sid);
+                    console.log(`Transport closed for session ${sid}`);
+                }
+            };
+
+            const server = getServer();
+            await server.connect(transport);
+        } else {
+            const errorData = sessionId ? { code: 'SESSION_NOT_FOUND', message: 'Not Found: Invalid session ID' } : { code: 'BAD_REQUEST', message: 'Bad Request: No valid session ID provided for non-init request' };
+            const statusCode = sessionId ? 404 : 400;
+            return res.status(statusCode).json({
+                jsonrpc: '2.0',
+                error: { code: -32000, message: errorData.message, data: { code: errorData.code } },
+                id: null,
+            });
+        }
+
         try {
-            const httpTransport = new StreamableHTTPServerTransport({
-                sessionIdGenerator: undefined,
-            });
-            await httpServer.connect(httpTransport);
-            await httpTransport.handleRequest(req, res, req.body);
-            res.on('close', () => {
-                console.log('HTTP Request closed');
-                httpTransport.close();
-                httpServer.close();
-            });
+            await transport.handleRequest(req, res, req.body);
         } catch (error) {
-            console.error('Error handling MCP HTTP request:', error);
+            console.error(`Error handling MCP ${req.method} request:`, error);
             if (!res.headersSent) {
                 res.status(500).json({
                     jsonrpc: '2.0',
-                    error: {
-                        code: -32603,
-                        message: 'Internal server error',
-                    },
+                    error: { code: -32603, message: 'Internal server error' },
                     id: null,
                 });
             }
         }
     });
 
-    app.get('/mcp', async (req: Request, res: Response) => {
-        console.log('Received GET MCP request');
-        res.writeHead(405).end(JSON.stringify({
-            jsonrpc: "2.0",
-            error: {
-                code: -32000,
-                message: "Method not allowed."
-            },
-            id: null
-        }));
-    });
-
-    app.delete('/mcp', async (req: Request, res: Response) => {
-        console.log('Received DELETE MCP request');
-        res.writeHead(405).end(JSON.stringify({
-            jsonrpc: "2.0",
-            error: {
-                code: -32000,
-                message: "Method not allowed."
-            },
-            id: null
-        }));
+    // Health check endpoint
+    app.get('/health', (req: Request, res: Response) => {
+        res.json({
+            status: 'healthy',
+            activeSessions: Object.keys(transports).length,
+            timestamp: new Date().toISOString()
+        });
     });
 
     const portIndex = process.argv.indexOf('--port');
@@ -377,6 +429,21 @@ export const startHttpServer = (app: express.Express, p: number): Promise<http.S
             });
     });
 };
+
+// Graceful shutdown
+process.on('SIGINT', async () => {
+    console.log('Shutting down server...');
+    for (const transport of transports.values()) {
+        try {
+            await transport.close();
+        } catch (error) {
+            console.error(`Error closing transport for session ${transport.sessionId}:`, error);
+        }
+    }
+    transports.clear();
+    console.log('Server shutdown complete');
+    process.exit(0);
+});
 
 if (process.env.NODE_ENV !== 'test') {
     runServer().catch((error) => {
